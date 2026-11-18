@@ -3,15 +3,24 @@ from groq import Groq
 st.set_page_config(page_title="Placement Practice",page_icon='🥰',layout="centered")
 st.title("AI Interview Assistant")
 st.caption("Practice and Prepare for our Interview")
+st.caption("Launched By Deepti ")
 try:
   client=Groq(api_key=st.secrets["GROQ_API_KEY"])
 except(Keyerror,FileNotFound):
   st.error("API key is missing.Add it in advanced settings")
   st.stop() 
 role=st.selectbox('Job Title',['Machine Learning Enginerr','Senior Software Enginerr','Devops Engineer','Data Analyst','other'])
-if role == "Other":
+ if role == "Other":
   st.text_input('Enter you Job Title', 'xxxxxx')
   model = st.selectbox('Model',['openai/gpt-oss-20b','openai/gpt-oss-120b'])
   level = st.selectbox('Difficulty',['Beginner','Intermediate','Advanced'])
   mode = st.radio('Activity',['Generate Questions','Generate Code','Evaluate Answers','Improve Answers'])
+  if mode == 'Generate Questions':
+    count = st.Slider("number of questions",1,10,5)
+  elif mode == 'Generate Code Questions':
+    topic = st.selectbox('Topics',['SQL','AIML','PYTHON','DSA','C++/C','JAVA','CSE')
+    count = st.slider("Number of Questions", 1,10,5)
+  else:
+    question = st.text_area('Enter Interview Question here')
+    answer = st.text_area('Enter your answer',height=160)
 
